@@ -1,7 +1,5 @@
-
-/** @param {healtower} healtower **/
-run: function(healtower) {
-    var defenseTower = {
+var defenseTower = {
+    run: function() {
         Game.getObjectById('TOWER_ID');
         //Crée une tour proche de l'entité à soigner
         if(tower) {
@@ -19,5 +17,6 @@ run: function(healtower) {
             }
         }
     };
-}
+};
+
 module.exports = defenseTower;

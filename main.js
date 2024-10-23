@@ -37,7 +37,7 @@ module.exports.loop = function () {
     }
 
     //Détection de batiments endommagées pour restauration par tourelle
-    defenseTower.healtower
+    defenseTower.run();
 
     //clear memoire
     for(var name in Game.creeps) {
