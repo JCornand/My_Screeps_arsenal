@@ -1,8 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
-const defenseTower = require('./defense.tower');
-//var defenseTower = require('defense.tower');
+var defenseTower = require('defense.tower');
 
 module.exports.loop = function () {
     
@@ -38,7 +37,7 @@ module.exports.loop = function () {
     }
 
     //Détection de batiments endommagées pour restauration par tourelle
-    defenseTower.tower
+    defenseTower.healtower
 
     //clear memoire
     for(var name in Game.creeps) {
