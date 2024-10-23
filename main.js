@@ -1,8 +1,11 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+const defenseTower = require('./defense.tower');
+//var defenseTower = require('defense.tower');
 
 module.exports.loop = function () {
+    
     //declaration de la variable harvester + spawn
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
@@ -13,6 +16,7 @@ module.exports.loop = function () {
         Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName,
             {memory: {role: 'harvester'}});
     }
+    
     //declaration de la variable upgrader + spawn
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     console.log('Upgraders: ' + upgraders.length);
@@ -32,21 +36,10 @@ module.exports.loop = function () {
             Game.spawns['Spawn1'].pos.y,
             {align: 'left', opacity: 0.8});
     }
-    //partie tourelle a bouger dans une fonction
-    var tower = Game.getObjectById('TOWER_ID');
-    if(tower) {
-        var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => structure.hits < structure.hitsMax
-        });
-        if(closestDamagedStructure) {
-            tower.repair(closestDamagedStructure);
-        }
 
-        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(closestHostile) {
-            tower.attack(closestHostile);
-        }
-    }
+    //Détection de batiments endommagées pour restauration par tourelle
+    defenseTower.tower
+
     //clear memoire
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
@@ -67,5 +60,4 @@ module.exports.loop = function () {
             console.log('Clearing non-existing creep memory:', name);
         }
     }
-
 }
