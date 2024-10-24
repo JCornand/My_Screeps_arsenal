@@ -9,6 +9,7 @@ const ROLE_UPGRADER = 'upgrader';
 const ROLE_BUILDER = 'builder';
 const MIN_HARVESTERS = 2; // Nombre minimum de harvesters nécessaires
 const MIN_UPGRADERS = 2; // Nombre minimum d'upgraders nécessaires
+const MIN_BUILDERS = 2; // Nombre minimum de builders nécessaires
 
 /**
  * Fonction pour créer un creep d'un rôle spécifique.
@@ -30,9 +31,10 @@ function manageCreeps() {
     // Récupération des creeps de chaque rôle
     const harvesters = _.filter(Game.creeps, (creep) => creep.memory.role === ROLE_HARVESTER);
     const upgraders = _.filter(Game.creeps, (creep) => creep.memory.role === ROLE_UPGRADER);
-    
+    const builders = _.filter(Game.creeps, (creep) => creep.memory.role === ROLE_BUILDER);
+
     // Affichage du nombre de creeps de chaque rôle
-    console.log(`Harvesters: ${harvesters.length}, Upgraders: ${upgraders.length}`);
+    console.log(`Harvesters: ${harvesters.length}, Upgraders: ${upgraders.length}, Builders: ${builders.length}`);
 
     // Création d'un nouveau harvester si le nombre est inférieur au minimum requis
     if (harvesters.length < MIN_HARVESTERS) {
@@ -42,6 +44,11 @@ function manageCreeps() {
     // Création d'un upgrader seulement si au moins 2 harvesters existent
     if (harvesters.length >= MIN_HARVESTERS && upgraders.length < MIN_UPGRADERS) {
         spawnCreep(ROLE_UPGRADER);
+    }
+
+    // Création d'un builder seulement si au moins 2 harvesters et 2 upgraders existent
+    if (harvesters.length >= MIN_HARVESTERS && upgraders.length >= MIN_UPGRADERS && builders.length < MIN_BUILDERS) {
+        spawnCreep(ROLE_BUILDER);
     }
 }
 
