@@ -1,7 +1,7 @@
 var defenseTower = {
     run: function() {
-        Game.getObjectById('TOWER_ID');
-        //Crée une tour proche de l'entité à soigner
+        var tower = Game.getObjectById('TOWER_ID'); // Assurez-vous que 'TOWER_ID' est remplacé par l'ID réel de la tour
+        // Crée une tour proche de l'entité à soigner
         if(tower) {
             var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: (structure) => structure.hits < structure.hitsMax
@@ -16,7 +16,7 @@ var defenseTower = {
                 tower.attack(closestHostile);
             }
         }
-    };
+    }
 };
 
 module.exports = defenseTower;
