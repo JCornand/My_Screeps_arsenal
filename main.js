@@ -7,6 +7,7 @@ module.exports.loop = function () {
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
 
+    // Création des harvesters
     if (harvesters.length < 2) {
         var newName = 'Harvester' + Game.time;
         console.log('Spawning new harvester: ' + newName);
@@ -18,7 +19,8 @@ module.exports.loop = function () {
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     console.log('Upgraders: ' + upgraders.length);
 
-    if (upgraders.length < 2) {
+    // Création des upgraders seulement si il y a au moins 2 harvesters
+    if (harvesters.length >= 2 && upgraders.length < 2) {
         var newName = 'Upgrader' + Game.time;
         console.log('Spawning new upgrader: ' + newName);
         Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName, {
@@ -26,6 +28,7 @@ module.exports.loop = function () {
         });
     }
 
+    // Affichage de l'état du spawn
     if (Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
         Game.spawns['Spawn1'].room.visual.text(
@@ -36,8 +39,10 @@ module.exports.loop = function () {
         );
     }
 
+    // Exécution de la logique de la tour de défense
     defenseTower.run();
 
+    // Exécution des rôles des creeps
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
         if (creep.memory.role == 'harvester') {
@@ -51,6 +56,7 @@ module.exports.loop = function () {
         }
     }
 
+    // Nettoyage de la mémoire
     for (var name in Memory.creeps) {
         if (!Game.creeps[name]) {
             delete Memory.creeps[name];
