@@ -9,7 +9,7 @@ const ROLE_UPGRADER = 'upgrader';
 const ROLE_BUILDER = 'builder';
 const MIN_HARVESTERS = 2; // Nombre minimum de harvesters nécessaires
 const MIN_UPGRADERS = 2; // Nombre minimum d'upgraders nécessaires
-const MIN_BUILDERS = 2; // Nombre minimum de builders nécessaires
+const MIN_BUILDERS = 2; // Nombre minimum d'upgraders nécessaires
 
 /**
  * Fonction pour créer un creep d'un rôle spécifique.
@@ -45,7 +45,7 @@ function manageCreeps() {
     if (harvesters.length >= MIN_HARVESTERS && upgraders.length < MIN_UPGRADERS) {
         spawnCreep(ROLE_UPGRADER);
     }
-
+    
     // Création d'un builder seulement si au moins 2 harvesters et 2 upgraders existent
     if (harvesters.length >= MIN_HARVESTERS && upgraders.length >= MIN_UPGRADERS && builders.length < MIN_BUILDERS) {
         spawnCreep(ROLE_BUILDER);
